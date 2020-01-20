@@ -8,10 +8,15 @@
 <p th:unless="${events} and ${events.size()}">No events Created!</p>
 
 <table class="table table-striped">
-    <thead>
-    <tr><th>Name</th></tr></thead>
+    <tr><th>Name</th>
+
+    <th>Description</th></tr>
+
     <tr th:each="event:${events}">
-    <td th:text="${event}"></td></tr>
+    <td th:text="${event.getKey()}"></td></tr>
+    <td th:text="${event.getValue()}"></td></tr>
+
+
 </table>
 <!--ul-->
 <!--    <th:block th:each="event:${events}">-->
