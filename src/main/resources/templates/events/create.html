@@ -3,13 +3,18 @@
 <head th:replace="fragments :: head"></head>
 
 <body class="container">
-<h1>Create Event</h1>
-<nav th:replace="fragments :: navigation"></nav>
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: header"></nav>
 
 <form method="post" action="/events/create">
+
     <div class="form=group">
+<!-- @RequestParam matches the parameters to the submitted data. For this to work, the parameter names MUST match the name attributes
+used in each of the input elements.
+<input type="text" name="eventName" class="form-control"></label></div> -->
+            <!-- For binding to take place, we must use the model field names as the form field names.-->
         <label>Name
-            <input type="text" name="eventName" class="form-control"></label></div>
+            <input type="text" name="name" class="form-control"></label></div>
     <div class="form=group">
         <label>Description
             <input type="text" name="description" class="form-control"></label></div>

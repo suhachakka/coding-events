@@ -3,21 +3,29 @@
 <head th:replace="fragments :: head"></head>
 <body class = container>
 <h1>All Events</h1>
-<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: header"></nav>
 
 <p th:unless="${events} and ${events.size()}">No events Created!</p>
 
 <table class="table table-striped">
-    <tr><th>Name</th>
-
-    <th>Description</th></tr>
+    <tr>
+        <th>EventID</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
 
     <tr th:each="event:${events}">
-    <td th:text="${event.getKey()}"></td></tr>
-    <td th:text="${event.getValue()}"></td></tr>
-
-
+        <td th:text="${event.getId()}"></td>
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.description }"></td></tr>
 </table>
+
+<!--  images folder=><img th:src = "@{/images/familyPhoto1.jpg}" /> or
+image file=> <img th:src = "@{/familyPhoto1.jpg}" />-->
+<!--    <td th:text="${event.key}"></td>-->
+<!--    <td th:text="${event.value}"></td></tr>-->
+
+
 <!--ul-->
 <!--    <th:block th:each="event:${events}">-->
 <!--    <li th:text="${event}"></li></th:block>-->
