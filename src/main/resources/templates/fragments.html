@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+<!--    <link rel = "stylesheet" th:href="@{/styles.css}" />-->
+<!--    <script th:src="@{/script.js}"></script>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+<nav th:fragment ="navigation">
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="/events">All events</a></li>
+        <li class="nav-item"><a class="nav-link" href="/events/create">Create event</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>
