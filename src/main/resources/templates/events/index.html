@@ -12,12 +12,17 @@
         <th>EventID</th>
         <th>Name</th>
         <th>Description</th>
+        <th>EventEdit</th>
     </tr>
 
     <tr th:each="event:${events}">
         <td th:text="${event.id}"></td>
         <td th:text="${event.name}"></td>
-        <td th:text="${event.description }"></td></tr>
+        <td th:text="${event.description }"></td>
+        <td>
+            <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
+        </td>
+    </tr>
 </table>
 
 <!--  images folder=><img th:src = "@{/images/familyPhoto1.jpg}" /> or

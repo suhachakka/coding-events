@@ -16,44 +16,47 @@ public class EventController {
     //private  static  List<String> events = new ArrayList();
     //private static List<Event> events = new ArrayList<>();
 //    private static HashMap<String, String> events=new HashMap<>();
-   @GetMapping
-    public String displayAllEvents(Model model){
+    @GetMapping
+    public String displayAllEvents(Model model) {
 /*        List<String> events = new ArrayList();
        events.add("Code with pride");
         events.add("Strange Loop");
         events.add("Apple WWDC");
        events.add("SpringOne Platfrom");*/
-       model.addAttribute("title","All events");
-       model.addAttribute("events", EventData.getAll());
+        model.addAttribute("title", "All events");
+        model.addAttribute("events", EventData.getAll());
 //        model.addAttribute("events",events);
-         return "events/index";
+        return "events/index";
     }
+
     @GetMapping("create")
-    public String renderCreateEventForm(Model model){
-        model.addAttribute("title","Create event");
+    public String renderCreateEventForm(Model model) {
+        model.addAttribute("title", "Create event");
         return "events/create";
     }
 
-//    @PostMapping("create")
+    //    @PostMapping("create")
 /*    public String processCreateEventForm(@RequestParam String eventName,
                                         @RequestParam String eventDescription){
                    events.put(eventName,eventDescription); // Hashmap
        events.add(new Event(eventName,eventDescription)); // Model creation
             EventData.add(new Event(eventName,eventDescription)); data layer = model and data decoupling*/
 //model binding
-@PostMapping("create")
-public String processCreateEventForm(@ModelAttribute Event newEvent){
+    @PostMapping("create")
+    public String processCreateEventForm(@ModelAttribute Event newEvent) {
 
-           EventData.add(newEvent); // model-binding
+        EventData.add(newEvent); // model-binding
 
         return "redirect:";
     }
+
     @GetMapping("delete")
     public String renderDeleteEventForm(Model model) {
         model.addAttribute("title", "Delete Event");
         model.addAttribute("events", EventData.getAll());
         return "events/delete";
     }
+
     @PostMapping("delete")
     public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
 
@@ -65,4 +68,18 @@ public String processCreateEventForm(@ModelAttribute Event newEvent){
 
         return "redirect:";
     }
+
+    @GetMapping("edit/{eventId}")
+    public String displayEditForm(Model model, @PathVariable int eventId) {
+        model.addAttribute("title","Edit event");
+        model.addAttribute("events", EventData.getAll());
+        Event eventToEdit= EventData.getById(eventId);
+        model.addAttribute("events",eventToEdit);
+        return "events/edit";
+    }
+
+    @PostMapping("edit")
+    public String processEditForm(int eventId, String name, String description) {
+      EventData.edit(eventId,name,description);
+        return "redirect:"; }
 }

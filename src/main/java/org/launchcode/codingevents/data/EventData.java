@@ -25,4 +25,12 @@ public class EventData {
             events.remove(id);
         }
     }
+    public static Event edit(int id,String name,String description){
+        Event eventToEdit = getById(id);
+        if(events.equals(eventToEdit)){
+            Event newEvent = new Event(name,description);
+            return newEvent;
+        }
+        return eventToEdit;
+    }
 }
