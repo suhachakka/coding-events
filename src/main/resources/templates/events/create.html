@@ -8,24 +8,34 @@
 
 <form method="post" action="/events/create">
 
-    <div class="form=group">
-<!-- @RequestParam matches the parameters to the submitted data. For this to work, the parameter names MUST match the name attributes
-used in each of the input elements.
-<input type="text" name="eventName" class="form-control"></label></div> -->
-            <!-- For binding to take place, we must use the model field names as the form field names.-->
+    <div class="form-group">
         <label>Name
-            <input type="text" name="name" class="form-control"></label></div>
-    <div class="form=group">
+            <input type="text" th:field=${event.name}  class="form-control">
+        </label>
+        <p class = "error" th:errors="${event.name}"></p>
+
+    </div>
+    <div class="form-group">
         <label>Description
-            <input type="text" name="description" class="form-control"></label></div>
-    <div class="form=group">
+            <input type="text" th:field=${event.description}  class="form-control"></label>
+        <p class = "error" th:errors="${event.description}"></p>
 
-    <label>Email
-            <input type="email" name="contactEmail" class="form-control"></label></div>
-    <div class="form=group">
+    </div>
 
-    <label>Number of Attendees
-            <input type="number" name="Attendees" class="form-control"></label></div>
+    <div class="form-group">
+
+        <label>Email
+            <input type="email" id="contactEmail" th:field=${event.contactEmail}   value="me@me.com" class="form-control"></label>
+        <p class = "error" th:errors="${event.contactEmail}"></p>
+
+    </div>
+    <div class="form-group">
+
+        <label>Number of Attendees
+            <input type="number" th:field=${event.Attendees} class="form-control"></label>
+        <p class = "error" th:errors="${event.Attendees}"></p>
+
+    </div>
     <div class="form-group">
     <input type="submit" value="Create" class="btn btn-success"></div>
 </form>

@@ -8,27 +8,38 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Event {
     //private String id = UUID.randomUUID().toString();
    private  int id;
-    private static AtomicInteger idSequence = new AtomicInteger();
-   //private static int nextId =1;
+//    private static AtomicInteger idSequence = new AtomicInteger();
+   private static int nextId =1;
    @NotBlank(message = "Name is required.")
    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
+
     @Size(max = 500, message = "Description too long!")
     private String description;
+
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
     @Min(50)
     private Integer Attendees;
 
+    //no-arg constructor
+    public Event(){
+        //this.id = idSequence.incrementAndGet();
+        this.id= nextId;
+         nextId++;
+    }
+
+
     public Event(String name, String description,String contactEmail,Integer Attendees) {
-//        this.id=nextId;
-//        nextId++;
-        this.id = idSequence.incrementAndGet();
+
+        this();
+
         this.name = name;
         this.description = description;
         this.contactEmail=contactEmail;
         this.Attendees=Attendees;
+
     }
 
 

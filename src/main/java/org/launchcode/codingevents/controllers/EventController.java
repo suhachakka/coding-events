@@ -3,8 +3,11 @@ package org.launchcode.codingevents.controllers;
 import org.launchcode.codingevents.data.EventData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.launchcode.codingevents.models.Event;
+
+import javax.validation.Valid;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +16,14 @@ import java.util.List;
 @Controller
 @RequestMapping("events")
 public class EventController {
+    private Model model;
+    private Event event;
+    private String name;
+    private String description;
+    private String contactEmail;
+    private Integer attendees;
+    private int eventId;
+
     //private  static  List<String> events = new ArrayList();
     //private static List<Event> events = new ArrayList<>();
 //    private static HashMap<String, String> events=new HashMap<>();
@@ -32,6 +43,8 @@ public class EventController {
     @GetMapping("create")
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create event");
+        model.addAttribute(new Event());
+
         return "events/create";
     }
 
@@ -43,10 +56,13 @@ public class EventController {
             EventData.add(new Event(eventName,eventDescription)); data layer = model and data decoupling*/
 //model binding
     @PostMapping("create")
-    public String processCreateEventForm(@ModelAttribute Event newEvent) {
-
+    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent,Errors errors,
+                                          Model model) {
+       if(errors.hasErrors()){
+           model.addAttribute("title","Create event");
+           return "events/create";
+       }
         EventData.add(newEvent); // model-binding
-
         return "redirect:";
     }
 
@@ -70,21 +86,33 @@ public class EventController {
     }
 
     @GetMapping("edit/{eventId}")
-    public String displayEditForm(Model model, @PathVariable int eventId) {
+    public String displayEditForm( Model model, Event event, @PathVariable int eventId) {
+//        this.model = model;
+//        this.event = event;
+//        this.eventId = eventId;
+
+
+         event= EventData.getById(eventId);
+        model.addAttribute("events",event);
         model.addAttribute("title","Edit event");
-        Event eventToEdit= EventData.getById(eventId);
-        model.addAttribute("events",eventToEdit);
-        model.addAttribute("events", EventData.getAll());
 
         return "events/edit";
     }
 
     @PostMapping("edit")
-    public String processEditForm(int eventId,  @RequestParam String name,
+    public String processEditForm(Event event,@RequestParam int eventId,  @RequestParam String name,
                                    @RequestParam String description,
                                   @RequestParam String contactEmail, @RequestParam Integer Attendees) {
+//        this.event = event;
+//        this.eventId = eventId;
+//        this.name = name;
+//        this.description = description;
+//        this.contactEmail = contactEmail;
+//        attendees = Attendees;
+
         //EventData.edit(id,name,description,contactEmail,Attendees);
-        Event event = EventData.getById(eventId);
+
+         event= EventData.getById(eventId);
         if (event != null) {
             event.setName(name);
             event.setDescription(description);

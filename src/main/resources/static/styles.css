@@ -2,6 +2,7 @@ body{
 font-size:18px;
 color:purple;
 }
-#table table-striped{
-margin:50%;
+
+.error {
+  color: red;
 }

@@ -3,25 +3,39 @@
 <head th:replace="fragments :: head"></head>
 <body class = "container">
 <h1 th:text="${title}"></h1>
-<h1 th:text="'Edit Event \'' + '(name=' + ${name} +')' + '\' (id=' + ${eventId} + ')'"></h1>
+<h1 th:text="' \'' + '(name=' + ${event.getName()} +')' + '\' (id=' + ${eventId} + ')'"></h1>
 
 <nav th:replace="fragments :: header"></nav>
-<form method="post" th:action="@{/events/edit}">
+<form method="post" action="/events/edit">
 
-    <div class="form=group">
-        <label>Name
-            <input type="text" name="name" class="form-control"></label></div>
-    <div class="form=group">
-        <label>Description
-            <input type="text" name="description" class="form-control"></label></div>
+    <div class="form-group">
+        <label th:for="name">Name
+            <input type="text" th:field=${event.name} name="name" class="form-control"></label>
+
+        <p class = "error" th:errors="${event.name}"></p>
+
+    </div>
+    <div class="form-group">
+        <label th:for="description">Description
+            <input type="text" th:field=${event.description} class="form-control"></label>
+        <p class = "error" th:errors="${event.description}"></p>
+
+    </div>
+
     <div class="form-group">
 
-    <label>Email
-        <input type="email" name="contactEmail" class="form-control"></label></div>
+    <label th:for="contactEmail">Email
+        <input type="email"  th:field=${event.contactEmail}  class="form-control"></label>
+        <p class = "error" th:errors="${event.contactEmail}"></p>
+
+    </div>
     <div class="form-group">
 
-    <label>Number of Attendees
-        <input type="number" name="Attendees" class="form-control"></label></div>
+    <label th:for="Attendees">Number of Attendees
+        <input type="number" th:field=${event.Attendees} class="form-control"></label>
+        <p class = "error" th:errors="${event.Attendees}"></p>
+
+    </div>
     <input type="hidden" th:value="${eventId}" name="eventId" />
 
     <div class="form-group">
