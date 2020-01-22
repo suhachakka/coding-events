@@ -5,7 +5,7 @@
 <body class="container">
 <h1 th:text="${title}"></h1>
 <nav th:replace="fragments :: header"></nav>
-
+<p th:text="${errorMsg}" style="color:red;"></p>
 <form method="post" action="/events/create">
 
     <div class="form=group">
