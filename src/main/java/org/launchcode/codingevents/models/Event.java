@@ -1,15 +1,19 @@
 package org.launchcode.codingevents.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Entity
 public class Event {
-    //private String id = UUID.randomUUID().toString();
+    @Id
+    @GeneratedValue
    private  int id;
-//    private static AtomicInteger idSequence = new AtomicInteger();
-   private static int nextId =1;
+   //private static int nextId =1;
    @NotBlank(message = "Name is required.")
    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
@@ -27,8 +31,8 @@ public class Event {
     //no-arg constructor
     public Event(){
         //this.id = idSequence.incrementAndGet();
-        this.id= nextId;
-         nextId++;
+//        this.id= nextId;
+//         nextId++;
     }
 
 

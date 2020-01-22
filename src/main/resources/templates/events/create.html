@@ -33,7 +33,7 @@
 
         <label>Number of Attendees
             <input type="number" th:field=${event.Attendees} class="form-control"></label>
-        <p class = "error" th:errors="${event.Attendees}"></p>
+        <p class = "error" th:errors="${event.Attendees}"></p></div>
 
         <div class="form-group">
             <label> Type
@@ -46,7 +46,7 @@
             </label>
         </div>
 
-    </div>
+
     <div class="form-group">
     <input type="submit" value="Create" class="btn btn-success"></div>
 </form>
