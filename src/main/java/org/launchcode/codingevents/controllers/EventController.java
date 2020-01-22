@@ -1,6 +1,7 @@
 package org.launchcode.codingevents.controllers;
 
 import org.launchcode.codingevents.data.EventData;
+import org.launchcode.codingevents.models.EventType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,7 +30,7 @@ public class EventController {
         events.add("Apple WWDC");
        events.add("SpringOne Platfrom");*/
         model.addAttribute("title", "All events");
-        model.addAttribute("events", EventData.getAll());
+        model.addAttribute("events", EventData.getAll()); // passing eventdata
 //        model.addAttribute("events",events);
         return "events/index";
     }
@@ -38,7 +39,7 @@ public class EventController {
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create event");
         model.addAttribute(new Event());
-
+        model.addAttribute("types", EventType.values()); // passing enum values
         return "events/create";
     }
 
@@ -54,6 +55,7 @@ public class EventController {
                                           Model model) {
        if(errors.hasErrors()){
            model.addAttribute("title","Create event");
+
            return "events/create";
        }
         EventData.add(newEvent); // model-binding
@@ -81,22 +83,20 @@ public class EventController {
 
     @GetMapping("edit/{eventId}")
     public String displayEditForm( Model model, Event event, @PathVariable int eventId) {
-//        this.model = model;
-//        this.event = event;
-//        this.eventId = eventId;
 
-
-         event= EventData.getById(eventId);
-        model.addAttribute("events",event);
         model.addAttribute("title","Edit event");
+        event= EventData.getById(eventId);
+         model.addAttribute("eventToEdit",event);
+        model.addAttribute("types", EventType.values()); // passing enum values
+
 
         return "events/edit";
     }
 
     @PostMapping("edit")
-    public String processEditForm(Event event,@RequestParam int eventId,  @RequestParam String name,
-                                   @RequestParam String description,
-                                  @RequestParam String contactEmail, @RequestParam Integer Attendees) {
+    public String processEditForm(Event event,int eventId,String name,
+                                   String description,
+                                  String contactEmail, Integer Attendees) {
 //        this.event = event;
 //        this.eventId = eventId;
 //        this.name = name;
@@ -107,6 +107,7 @@ public class EventController {
         //EventData.edit(id,name,description,contactEmail,Attendees);
 
          event= EventData.getById(eventId);
+
         if (event != null) {
             event.setName(name);
             event.setDescription(description);

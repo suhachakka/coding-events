@@ -23,6 +23,7 @@ public class Event {
     @Min(50)
     private Integer Attendees;
 
+    private EventType type;
     //no-arg constructor
     public Event(){
         //this.id = idSequence.incrementAndGet();
@@ -31,15 +32,14 @@ public class Event {
     }
 
 
-    public Event(String name, String description,String contactEmail,Integer Attendees) {
+    public Event(String name, String description,String contactEmail,Integer Attendees,EventType type) {
 
         this();
-
         this.name = name;
         this.description = description;
         this.contactEmail=contactEmail;
         this.Attendees=Attendees;
-
+        this.type=type;
     }
 
 
@@ -78,6 +78,14 @@ public class Event {
 
     public void setAttendees(Integer attendees) {
         Attendees = attendees;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     @Override
