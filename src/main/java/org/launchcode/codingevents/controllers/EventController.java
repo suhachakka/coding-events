@@ -16,13 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("events")
 public class EventController {
-    private Model model;
-    private Event event;
-    private String name;
-    private String description;
-    private String contactEmail;
-    private Integer attendees;
-    private int eventId;
+
 
     //private  static  List<String> events = new ArrayList();
     //private static List<Event> events = new ArrayList<>();
