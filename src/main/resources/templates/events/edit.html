@@ -4,6 +4,7 @@
 <body class = "container">
 <h1 th:text="${title}"></h1>
 <h1 th:text="' \'' + '(name=' + ${event.getName()} +')' + '\' (id=' + ${eventId} + ')'"></h1>
+<h1 th:text="' \'' + '(name=' + ${event.getName()} +')' + '\' (id=' + ${eventId} + ')'"></h1>
 
 <nav th:replace="fragments :: header"></nav>
 <form method="post" action="/events/edit">
