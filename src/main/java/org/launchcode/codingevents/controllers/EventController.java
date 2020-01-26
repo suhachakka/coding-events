@@ -43,7 +43,7 @@ public class EventController {
 
 
     @PostMapping("create")
-    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent,Errors errors,
+    public String processCreateEventForm(@ModelAttribute @Valid Event event,Errors errors,
                                           Model model) {
        if(errors.hasErrors()){
            model.addAttribute("title","Create event");
@@ -51,7 +51,7 @@ public class EventController {
            return "events/create";
        }
 //        EventData.add(newEvent); // model-binding
-        eventRepository.save(newEvent);
+        eventRepository.save(event);
         return "redirect:";
     }
 
@@ -78,11 +78,15 @@ public class EventController {
     }
 
     @GetMapping("edit/{eventId}")
-    public String displayEditForm( Model model, Event event, @PathVariable int eventId) {
-         model.addAttribute("events",eventRepository.findById(eventId));
+    public String displayEditForm(Model model, @PathVariable int eventId) {
+//        Optional<Event> event = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
+        Optional<Event> event = eventRepository.findById(eventId);
+        if( event.isPresent() ) {
+            model.addAttribute("event", event.get());}
+        //model.addAttribute("events",event);
+
         model.addAttribute("title","Edit event");
-//        event= EventData.getById(eventId);
-//         model.addAttribute("eventToEdit",event);
+
         model.addAttribute("types", EventType.values()); // passing enum values
 
 
@@ -90,23 +94,23 @@ public class EventController {
     }
 
     @PostMapping("edit")
-    public String processEditForm(Event event,@RequestParam int eventId,@RequestParam String name,
+    public String processEditForm(Event event1,@RequestParam int eventId,@RequestParam String name,
                                    @RequestParam String description,
                                  @RequestParam String contactEmail, @RequestParam Integer Attendees) {
 
 
-//         event= EventData.getById(eventId);
-       eventRepository.findById(eventId);
+//         event= EventData.getById(eventId)
+//        Optional<Event> event = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
+                Optional<Event> event = eventRepository.findById(eventId);
 
-        if (event != null) {
-            event.setName(name);
-            event.setDescription(description);
-            event.setContactEmail(contactEmail);
-            event.setAttendees(Attendees);
+        if(event.isPresent())
+               event1=   event.get();
 
-        }
-        eventRepository.save(event);
-        return "redirect:";
-
+               event1.setName(name);
+               event1.setDescription(description);
+               event1.setContactEmail(contactEmail);
+               event1.setAttendees(Attendees);
+        eventRepository.save(event1);
+            return "redirect:";
 
     }}

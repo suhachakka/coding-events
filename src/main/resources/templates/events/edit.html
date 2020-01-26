@@ -3,10 +3,10 @@
 <head th:replace="fragments :: head"></head>
 <body class = "container">
 <h1 th:text="${title}"></h1>
-<h1 th:text="' \'' + '(name=' + ${name} +')' + '\' (id=' + ${eventId} + ')'"></h1>
 
 <nav th:replace="fragments :: header"></nav>
 <form method="post" action="/events/edit">
+    <h1 th:text="' \'' + '(name=' + ${event.name} +')' + '\' (id=' + ${event.id} + ')'"></h1>
 
     <div class="form-group">
         <label th:for="name">Name
@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group">
-        <input type="hidden" th:value="${eventId}" name="eventId" />
+        <input type="hidden" th:value="${event.id}" name="eventId" />
 
         <input type="submit" value="Edit" class="btn btn-success"></div>
 </form>
