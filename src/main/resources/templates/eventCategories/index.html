@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body class = container>
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: header"></nav>
+
+<p th:unless="${eventCategories} and ${eventCategories.size()}">No categories Created!</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Category Name</th></tr>
+    <tr th:each="category:${eventCategories}">
+        <td th:text="${category.categoryName}"></td>
+    </tr>
+</table>
+</body>
+</html>

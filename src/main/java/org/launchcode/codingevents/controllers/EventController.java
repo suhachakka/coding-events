@@ -104,7 +104,7 @@ public class EventController {
                 Optional<Event> event = eventRepository.findById(eventId);
 
         if(event.isPresent())
-               event1=   event.get();
+               event1= event.get();
 
                event1.setName(name);
                event1.setDescription(description);
