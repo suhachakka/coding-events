@@ -1,6 +1,9 @@
 package org.launchcode.codingevents.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.*;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,9 +23,18 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    @Min(50)
+    @Min(1)
     private Integer Attendees;
 
+    @Size(min = 3, max = 50, message = "location must be morethan 3 chars")
+    private String location;
+
+    @AssertTrue(message = "Mandatory to register")
+    private boolean register;
+
+     @FutureOrPresent(message = "Enter valid date")
+     @DateTimeFormat(pattern="yyyy-MM-dd")
+     private Date eventDate;
     //no-arg constructor
     public Event(){
         //this.id = idSequence.incrementAndGet();
@@ -31,7 +43,8 @@ public class Event {
     }
 
 
-    public Event(String name, String description,String contactEmail,Integer Attendees) {
+    public Event(String name, String description,String contactEmail,Integer Attendees,
+                 String location,boolean register,Date eventDate) {
 
         this();
 
@@ -39,6 +52,9 @@ public class Event {
         this.description = description;
         this.contactEmail=contactEmail;
         this.Attendees=Attendees;
+        this.location=location;
+        this.register=register;
+        this.eventDate=eventDate;
 
     }
 
@@ -78,6 +94,30 @@ public class Event {
 
     public void setAttendees(Integer attendees) {
         Attendees = attendees;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isRegister() {
+        return register;
+    }
+
+    public void setRegister(boolean register) {
+        this.register = register;
+    }
+
+    public Date getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
     }
 
     @Override
