@@ -12,7 +12,7 @@ public class Event {
     //private String id = UUID.randomUUID().toString();
    private  int id;
 //    private static AtomicInteger idSequence = new AtomicInteger();
-   private static int nextId =1;
+   private static int nextId =0;
    @NotBlank(message = "Name is required.")
    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;

@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("events")
@@ -80,14 +81,14 @@ public class EventController {
     }
 
     @GetMapping("edit/{eventId}")
-    public String displayEditForm( Model model, Event event, @PathVariable int eventId) {
-//        this.model = model;
-//        this.event = event;
-//        this.eventId = eventId;
+    public String displayEditForm( Model model, @PathVariable int eventId) {
+
+        Optional<Event> event= Optional.ofNullable(Optional.ofNullable(EventData.getById(eventId)).orElse(null));
+         if(event.isPresent()) {
+             Event event1 = event.get();
 
 
-         event= EventData.getById(eventId);
-        model.addAttribute("events",event);
+        model.addAttribute("events",event1);}
         model.addAttribute("title","Edit event");
 
         return "events/edit";
@@ -106,8 +107,9 @@ public class EventController {
 
         //EventData.edit(id,name,description,contactEmail,Attendees);
 
-         event= EventData.getById(eventId);
-        if (event != null) {
+         Optional<Event> event1= Optional.ofNullable(Optional.ofNullable(EventData.getById(eventId)).orElse(null));
+        if (event1.isPresent()) {
+            event=event1.get();
             event.setName(name);
             event.setDescription(description);
             event.setContactEmail(contactEmail);
