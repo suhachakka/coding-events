@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Event {
-    //private String id = UUID.randomUUID().toString();
+//    private String id = UUID.randomUUID().toString();
    private  int id;
 //    private static AtomicInteger idSequence = new AtomicInteger();
    private static int nextId =0;
@@ -32,22 +32,20 @@ public class Event {
     @AssertTrue(message = "Mandatory to register")
     private boolean register;
 
-     @FutureOrPresent(message = "Enter valid date")
+     @NotNull(message = "Enter valid date")
+     @FutureOrPresent
      @DateTimeFormat(pattern="yyyy-MM-dd")
      private Date eventDate;
     //no-arg constructor
     public Event(){
-        //this.id = idSequence.incrementAndGet();
         this.id= nextId;
-         nextId++;
+        nextId++;
     }
 
 
     public Event(String name, String description,String contactEmail,Integer Attendees,
                  String location,boolean register,Date eventDate) {
-
         this();
-
         this.name = name;
         this.description = description;
         this.contactEmail=contactEmail;

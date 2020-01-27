@@ -85,10 +85,7 @@ public class EventController {
 
         Optional<Event> event= Optional.ofNullable(Optional.ofNullable(EventData.getById(eventId)).orElse(null));
          if(event.isPresent()) {
-             Event event1 = event.get();
-
-
-        model.addAttribute("events",event1);}
+        model.addAttribute("event",event.get());}
         model.addAttribute("title","Edit event");
 
         return "events/edit";
