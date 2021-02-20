@@ -1,6 +1,9 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.*;
+//import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,7 +21,7 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    @Min(50)
+    //@Min(50)
     private Integer Attendees;
 
     public Event(String name, String description,String contactEmail,Integer Attendees) {

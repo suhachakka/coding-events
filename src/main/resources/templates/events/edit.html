@@ -3,14 +3,14 @@
 <head th:replace="fragments :: head"></head>
 <body class = "container">
 <h1 th:text="${title}"></h1>
-<h1 th:text="'Edit Event \'' + '(name=' + ${name} +')' + '\' (id=' + ${eventId} + ')'"></h1>
+<!--<h1 th:text="'Edit Event \'' + '(name=' + ${name} +')' + '\' (id=' + ${eventId} + ')'"></h1>-->
 
 <nav th:replace="fragments :: header"></nav>
 <form method="post" th:action="@{/events/edit}">
 
     <div class="form=group">
         <label>Name
-            <input type="text" name="name" class="form-control"></label></div>
+            <input type="text" name="name"  class="form-control"></label></div>
     <div class="form=group">
         <label>Description
             <input type="text" name="description" class="form-control"></label></div>
