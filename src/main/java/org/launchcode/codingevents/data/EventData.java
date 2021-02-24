@@ -25,12 +25,12 @@ public class EventData {
             events.remove(id);
         }
     }
-    public static Event edit(int id,String name,String description,String contactEmail,Integer Attendees){
-        Event eventToEdit = getById(id);
-        if(events.equals(eventToEdit)){
-            Event event = new Event(name, description,contactEmail,Attendees);
-            return event;
-        }
-        return eventToEdit;
-    }
+//    public static Event edit(int id,String name,String description,String contactEmail,Integer Attendees){
+//        Event eventToEdit = getById(id);
+//        if(events.equals(eventToEdit)){
+//            Event event = new Event(name, description,contactEmail,Attendees);
+//            return event;
+//        }
+//        return eventToEdit;
+//    }
 }
