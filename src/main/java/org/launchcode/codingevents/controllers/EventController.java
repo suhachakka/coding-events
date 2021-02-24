@@ -49,7 +49,7 @@ public class EventController {
     public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors,Model model) {
         if(errors.hasErrors()){
             model.addAttribute("title", "Create Event");
-            //model.addAttribute("errorMsg", "Bad data!"); simple validation error
+            model.addAttribute("errorMsg", "Bad data!"); //simple validation error
             return "events/create";        }
         EventData.add(newEvent); // model-binding
 
