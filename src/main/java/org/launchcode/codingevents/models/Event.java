@@ -12,7 +12,7 @@ public class Event {
 //    private String id = UUID.randomUUID().toString();
    private  int id;
 //    private static AtomicInteger idSequence = new AtomicInteger();
-   private static int nextId =0;
+   private static int nextId =1;
    @NotBlank(message = "Name is required.")
    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
@@ -38,14 +38,15 @@ public class Event {
      private Date eventDate;
     //no-arg constructor
     public Event(){
-        this.id= nextId;
-        nextId++;
+
     }
 
 
     public Event(String name, String description,String contactEmail,Integer Attendees,
                  String location,boolean register,Date eventDate) {
-        this();
+
+        this.id= nextId;
+        nextId++;
         this.name = name;
         this.description = description;
         this.contactEmail=contactEmail;
