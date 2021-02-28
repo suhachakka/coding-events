@@ -39,6 +39,7 @@ public class EventController {
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create event");
         model.addAttribute(new Event());
+        System.out.println("Empty:" + new Event().getId());
         model.addAttribute("types", EventType.values()); // passing enum values
         return "events/create";
     }
@@ -59,6 +60,7 @@ public class EventController {
            return "events/create";
        }
         EventData.add(newEvent); // model-binding
+        System.out.println("Param:" +newEvent.getId());
         return "redirect:";
     }
 
