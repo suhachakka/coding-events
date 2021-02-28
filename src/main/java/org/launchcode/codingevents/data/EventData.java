@@ -12,14 +12,19 @@ public class EventData {
         return events.values();
     }
 
-    public static void add(Event event) {
-        events.put(event.getId(), event);
-    }
+//    public static void add(Event event) {
+//        events.put(event.getId(), event);
+//    }
 
     public static Event getById(Integer id) {
         return events.get(id);
     }
-
+  public static void addEvent(Event event) {
+      Integer eventId = event.getId();
+      if( !events.containsKey(eventId)){
+          events.put(eventId, event);
+      }
+  }
     public static void remove(Integer id) {
         if (events.containsKey(id)) {
             events.remove(id);

@@ -51,7 +51,7 @@ public class EventController {
             model.addAttribute("title", "Create Event");
             model.addAttribute("errorMsg", "Bad data!"); //simple validation error
             return "events/create";        }
-        EventData.add(newEvent); // model-binding
+        EventData.addEvent(newEvent); // model-binding
 
         return "redirect:";
     }
