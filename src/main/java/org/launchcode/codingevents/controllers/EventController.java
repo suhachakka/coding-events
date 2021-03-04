@@ -38,8 +38,7 @@ public class EventController {
     @GetMapping("create")
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create event");
-        model.addAttribute(new Event());
-
+        model.addAttribute("event",new Event());
         return "events/create";
     }
 
@@ -51,6 +50,7 @@ public class EventController {
             EventData.add(new Event(eventName,eventDescription)); data layer = model and data decoupling*/
 //model binding
     @PostMapping("create")
+//    @RequestMapping(value="create", method = {RequestMethod.POST, RequestMethod.GET})
     public String processCreateEventForm(@ModelAttribute @Valid Event newEvent,Errors errors,
                                           Model model) {
        if(errors.hasErrors()){

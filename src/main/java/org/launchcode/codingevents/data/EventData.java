@@ -16,6 +16,12 @@ public class EventData {
         events.put(event.getId(), event);
     }
 
+    /*public static void addEvent(Event event) {
+        Integer eventId = event.getId();
+        if( !events.containsKey(eventId)){
+            events.put(eventId, event);
+        }
+    }*/
     public static Event getById(Integer id) {
         return events.get(id);
     }

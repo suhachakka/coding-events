@@ -9,8 +9,8 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Event {
-//    private String id = UUID.randomUUID().toString();
-   private  int id;
+  //private String id = UUID.randomUUID().toString();
+  private  int id;
 //    private static AtomicInteger idSequence = new AtomicInteger();
    private static int nextId =1;
    @NotBlank(message = "Name is required.")
@@ -37,16 +37,12 @@ public class Event {
      @DateTimeFormat(pattern="yyyy-MM-dd")
      private Date eventDate;
     //no-arg constructor
-    public Event(){
 
-    }
 
 
     public Event(String name, String description,String contactEmail,Integer Attendees,
                  String location,boolean register,Date eventDate) {
-
-        this.id= nextId;
-        nextId++;
+        this();
         this.name = name;
         this.description = description;
         this.contactEmail=contactEmail;
@@ -54,7 +50,13 @@ public class Event {
         this.location=location;
         this.register=register;
         this.eventDate=eventDate;
+    }
+    public Event(){
+        id= nextId;
+        nextId++;
 
+
+        //this.id = Event.nextId++;
     }
 
 
