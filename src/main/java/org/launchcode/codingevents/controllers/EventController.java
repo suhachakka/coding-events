@@ -56,6 +56,7 @@ public class EventController {
                                           Model model) {
        if(errors.hasErrors()){
            model.addAttribute("title","Create event");
+           model.addAttribute("types", EventType.values()); // passing enum values
 
            return "events/create";
        }
