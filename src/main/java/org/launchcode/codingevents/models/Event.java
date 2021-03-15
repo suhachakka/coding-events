@@ -3,6 +3,7 @@ package org.launchcode.codingevents.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -29,7 +30,11 @@ public class Event extends AbstractEntity {
     @Min(50)
     private Integer Attendees;
 
-    private EventType type;
+    //private EventType type;
+
+    @ManyToOne
+    @NotNull(message = "Category is required")
+    private EventCategory eventCategory;
     //no-arg constructor
     /** The second one is protected and has no arguments and/or no return statement.
     While you must set up this second constructor,
@@ -41,14 +46,16 @@ public class Event extends AbstractEntity {
     }
 
     //The  second constructor creates an instance of the class.
-    public Event(String name, String description,String contactEmail,Integer Attendees,EventType type) {
+    public Event(String name, String description,String contactEmail,Integer Attendees,
+            EventCategory eventCategory /*EventType type*/) {
 
         this();
         this.name = name;
         this.description = description;
         this.contactEmail=contactEmail;
         this.Attendees=Attendees;
-        this.type=type;
+        //this.type=type;
+        this.eventCategory=eventCategory;
     }
 
 
@@ -89,12 +96,21 @@ public class Event extends AbstractEntity {
         Attendees = attendees;
     }
 
-    public EventType getType() {
-        return type;
+//    public EventType getType() {
+//        return type;
+//    }
+//
+//    public void setType(EventType type) {
+//        this.type = type;
+//    }
+
+
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
     @Override

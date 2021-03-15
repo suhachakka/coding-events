@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.EventType;
@@ -26,6 +27,8 @@ public class EventController {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private EventCategoryRepository eventCategoryRepository;
     @GetMapping
     public String displayAllEvents(Model model) {
 
@@ -39,7 +42,8 @@ public class EventController {
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create event");
         model.addAttribute(new Event());
-        model.addAttribute("types", EventType.values()); // passing enum values
+        //model.addAttribute("types", EventType.values()); // passing enum values
+        model.addAttribute("categories",eventCategoryRepository.findAll());
         return "events/create";
     }
 
@@ -49,7 +53,8 @@ public class EventController {
                                           Model model) {
        if(errors.hasErrors()){
            model.addAttribute("title","Create event");
-           model.addAttribute("types", EventType.values()); // passing enum values
+           //model.addAttribute("types", EventType.values()); // passing enum values
+           model.addAttribute("categories",eventCategoryRepository.findAll());
 
            return "events/create";
        }
