@@ -20,7 +20,9 @@ import java.util.Optional;
 @Controller
 @RequestMapping("events")
 public class EventController {
-
+/**
+  we need to use the methods from CrudRepository to get all of the instances of the Event class
+*/
     @Autowired
     private EventRepository eventRepository;
 

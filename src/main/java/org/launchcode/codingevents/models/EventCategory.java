@@ -8,10 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class EventCategory {
-    @Id
+public class EventCategory extends AbstractEntity{
+    /*@Id
     @GeneratedValue
-    private int id;
+    private int id;*/
 
     @NotBlank(message = "Name is required")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
@@ -23,9 +23,9 @@ public class EventCategory {
         this.categoryName=categoryName;
     }
 
-    public int getId() {
-        return id;
-    }
+//    public int getId() {
+//        return id;
+//    }
 
     public String getCategoryName() {
         return categoryName;

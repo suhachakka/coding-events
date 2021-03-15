@@ -7,12 +7,14 @@ import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-
+/** Our JPA needs to know what Java class is going to be converted to a table in the MySQL database.
+A Java class that models a persistent data store is called a persistent class or entity class.
+ entity classes determine the structure of a table in our relational database */
 @Entity
-public class Event {
-    @Id
+public class Event extends AbstractEntity {
+   /* @Id
     @GeneratedValue
-   private  int id;
+   private  int id;*/
    //private static int nextId =1;
    @NotBlank(message = "Name is required.")
    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
@@ -29,13 +31,16 @@ public class Event {
 
     private EventType type;
     //no-arg constructor
+    /** The second one is protected and has no arguments and/or no return statement.
+    While you must set up this second constructor,
+    it will only be used by the JPA to create a new instance.*/
     public Event(){
         //this.id = idSequence.incrementAndGet();
 //        this.id= nextId;
 //         nextId++;
     }
 
-
+    //The  second constructor creates an instance of the class.
     public Event(String name, String description,String contactEmail,Integer Attendees,EventType type) {
 
         this();
@@ -48,9 +53,9 @@ public class Event {
 
 
 
-    public int getId() {
+    /*public int getId() {
         return id;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -97,16 +102,16 @@ public class Event {
         return name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return id == event.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Event event = (Event) o;
+//        return id == event.id;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id);
+//    }
 }
