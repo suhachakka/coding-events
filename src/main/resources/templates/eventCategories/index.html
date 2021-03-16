@@ -9,9 +9,16 @@
 
 <table class="table table-striped">
     <tr>
-        <th>Category Name</th></tr>
+        <th>ID</th>
+        <th>Category Name</th>
+    </tr>
     <tr th:each="category:${eventCategories}">
-        <td th:text="${category.categoryName}"></td>
+
+        <td th:text="${category.id}"></td>
+
+<!--        <td th:text="${category.categoryName}"></td>-->
+        <td><a th:text="${category.categoryName}" th:href="'/events?categoryId=' + ${category.id}"></a></td>
+
     </tr>
 </table>
 </body>

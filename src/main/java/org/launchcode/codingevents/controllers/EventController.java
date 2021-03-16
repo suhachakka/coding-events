@@ -3,6 +3,7 @@ package org.launchcode.codingevents.controllers;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.data.EventRepository;
+import org.launchcode.codingevents.models.EventCategory;
 import org.launchcode.codingevents.models.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,15 +30,32 @@ public class EventController {
 
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
-    @GetMapping
+  /*  @GetMapping
     public String displayAllEvents(Model model) {
 
         model.addAttribute("title", "All events");
 //        model.addAttribute("events", EventData.getAll()); // passing eventdata
         model.addAttribute("events",eventRepository.findAll());
         return "events/index";
-    }
+    }*/
 
+    @GetMapping
+    public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
+        if(categoryId == null) {
+            model.addAttribute("title", "All events");
+            model.addAttribute("events", eventRepository.findAll());
+        }else {
+            Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
+            if(result.isEmpty()){
+                model.addAttribute("title","Invalid CategoryId: "+ categoryId);
+            }else{
+                EventCategory category = result.get();
+                model.addAttribute("title","Events by category: "+category.getCategoryName());
+                model.addAttribute("events",category.getEvents());
+            }
+        }
+        return "events/index";
+    }
     @GetMapping("create")
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create event");
@@ -95,7 +113,8 @@ public class EventController {
 
         model.addAttribute("title","Edit event");
 
-        model.addAttribute("types", EventType.values()); // passing enum values
+//        model.addAttribute("types", EventType.values()); // passing enum values
+        model.addAttribute("categories",eventCategoryRepository.findAll());
 
 
         return "events/edit";
