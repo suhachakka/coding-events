@@ -15,20 +15,33 @@
         <p class = "error" th:errors="${event.name}"></p>
 
     </div>
-    <div class="form-group">
+<!--    <div class="form-group">-->
+<!--        <label>Description-->
+<!--            <input type="text" th:field=${event.description}  class="form-control"></label>-->
+<!--        <p class = "error" th:errors="${event.description}"></p>-->
+
+<!--    </div>-->
+<!--    updated with eventdetails-->
+ <div class="form-group">
         <label>Description
-            <input type="text" th:field=${event.description}  class="form-control"></label>
-        <p class = "error" th:errors="${event.description}"></p>
+            <input type="text" th:field=${event.eventDetails.description}  class="form-control"></label>
+        <p class = "error" th:errors="${event.eventDetails.description}"></p>
 
     </div>
 
     <div class="form-group">
 
         <label>Email
-            <input type="email" id="contactEmail" th:field=${event.contactEmail}   value="me@me.com" class="form-control"></label>
-        <p class = "error" th:errors="${event.contactEmail}"></p>
-
+            <input type="email" id="contactEmail" th:field=${event.eventDetails.contactEmail}   value="me@me.com" class="form-control"></label>
+        <p class = "error" th:errors="${event.eventDetails.contactEmail}"></p>
     </div>
+<!--    </div> <div class="form-group">-->
+
+<!--        <label>Email-->
+<!--            <input type="email" id="contactEmail" th:field=${event.contactEmail}   value="me@me.com" class="form-control"></label>-->
+<!--        <p class = "error" th:errors="${event.contactEmail}"></p>-->
+
+<!--    </div>-->
     <div class="form-group">
 
         <label>Number of Attendees

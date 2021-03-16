@@ -1,9 +1,7 @@
 package org.launchcode.codingevents.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -21,13 +19,14 @@ public class Event extends AbstractEntity {
    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
-    @Size(max = 500, message = "Description too long!")
+   /* moving these two fields in new class EventDetails
+   @Size(max = 500, message = "Description too long!")
     private String description;
 
     @Email(message = "Invalid email. Try again.")
-    private String contactEmail;
+    private String contactEmail;*/
 
-    @Min(50)
+    @Min(1) @Max(50)
     private Integer Attendees;
 
     //private EventType type;
@@ -35,6 +34,11 @@ public class Event extends AbstractEntity {
     @ManyToOne
     @NotNull(message = "Category is required")
     private EventCategory eventCategory;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @Valid // to validate the EventDetails fields and its afield valid annotation
+    @NotNull
+    private EventDetails eventDetails;
     //no-arg constructor
     /** The second one is protected and has no arguments and/or no return statement.
     While you must set up this second constructor,
@@ -46,13 +50,13 @@ public class Event extends AbstractEntity {
     }
 
     //The  second constructor creates an instance of the class.
-    public Event(String name, String description,String contactEmail,Integer Attendees,
+    public Event(String name, /*String description,String contactEmail,*/Integer Attendees,
             EventCategory eventCategory /*EventType type*/) {
 
         this();
         this.name = name;
-        this.description = description;
-        this.contactEmail=contactEmail;
+       // this.description = description;
+        //this.contactEmail=contactEmail;
         this.Attendees=Attendees;
         //this.type=type;
         this.eventCategory=eventCategory;
@@ -72,7 +76,7 @@ public class Event extends AbstractEntity {
         this.name = name;
     }
 
-    public String getDescription() {
+    /*public String getDescription() {
         return description;
     }
 
@@ -86,7 +90,7 @@ public class Event extends AbstractEntity {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
-    }
+    }*/
 
     public Integer getAttendees() {
         return Attendees;
@@ -111,6 +115,14 @@ public class Event extends AbstractEntity {
 
     public void setEventCategory(EventCategory eventCategory) {
         this.eventCategory = eventCategory;
+    }
+
+    public EventDetails getEventDetails() {
+        return eventDetails;
+    }
+
+    public void setEventDetails(EventDetails eventDetails) {
+        this.eventDetails = eventDetails;
     }
 
     @Override

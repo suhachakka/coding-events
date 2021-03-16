@@ -134,8 +134,8 @@ public class EventController {
                event1= event.get();
 
                event1.setName(name);
-               event1.setDescription(description);
-               event1.setContactEmail(contactEmail);
+//               event1.setDescription(description);
+//               event1.setContactEmail(contactEmail);
                event1.setAttendees(Attendees);
         eventRepository.save(event1);
             return "redirect:";
