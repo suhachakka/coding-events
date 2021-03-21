@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: header"></nav>
+
+<p th:unless="${tags} and ${tags.size()}">No categories Created!</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Tag Name</th>
+    </tr>
+    <tr th:each="tag:${tags}">
+
+        <td th:text="${tag.id}"></td>
+        <td th:text="${tag.tagName}"></td>
+<!--        <td><a th:text="${category.categoryName}" th:href="'/events?categoryId=' + ${category.id}"></a></td>-->
+
+    </tr>
+</table>
+</body>
+</html>    

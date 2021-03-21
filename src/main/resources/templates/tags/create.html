@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: header"></nav>
+
+<form method="post" action="/tags/create">
+
+    <div class="form-group">
+        <label>TagName
+            <input type="text" th:field=${tag.tagName}  class="form-control">
+        </label>
+        <p class = "error" th:errors="${tag.tagName}"></p>
+
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success"></div>
+</form>
+</body>
+</html>

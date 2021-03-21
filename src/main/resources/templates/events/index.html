@@ -11,30 +11,36 @@
     <tr>
         <th>EventID</th>
         <th>Name</th>
-        <th>Description</th>
-        <th>Email</th>
+<!--        <th>Description</th>-->
+<!--        <th>Email</th>-->
         <th>Attendees</th>
-        <th>Type</th>
+<!--        <th>Type</th>-->
         <th>EventEdit</th>
 
     </tr>
 
     <tr th:each="event:${events}">
         <td th:text="${event.id}"></td>
-        <td th:text="${event.name}"></td>
-<!--        <td th:text="${event.description }"></td>-->
-        <td th:text="${event.eventDetails.description}"></td>
-        <td th:text="${event.eventDetails.contactEmail}"></td>
+<!--        <td th:text="${event.name}"></td>-->
+        <td><a th:href="'/events/detail?eventId=' + ${event.id}" th:text="${event.name}"></a></td>
+
+        <!--        <td th:text="${event.description }"></td>-->
+<!--        <td th:text="${event.eventDetails.description}"></td>-->
+<!--        <td th:text="${event.eventDetails.contactEmail}"></td>-->
 <!--        <td th:text="${event.contactEmail }"></td>-->
         <td th:text="${event.Attendees }"></td>
-        <td th:text="${event.eventCategory.categoryName}"></td>
+<!--        <td th:text="${event.eventCategory.categoryName}"></td>-->
 <!--        <td th:text="${event.type}"></td>-->
 <!--        <td th:text="${event.type.displayName}"></td>-->
+
+
         <td>
             <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
         </td>
     </tr>
+
 </table>
+
 
 <!--  images folder=><img th:src = "@{/images/familyPhoto1.jpg}" /> or
 image file=> <img th:src = "@{/familyPhoto1.jpg}" />-->

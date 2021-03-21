@@ -3,21 +3,20 @@ package org.launchcode.codingevents.controllers;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.data.EventRepository;
-import org.launchcode.codingevents.models.EventCategory;
-import org.launchcode.codingevents.models.EventType;
+import org.launchcode.codingevents.data.TagRepository;
+import org.launchcode.codingevents.models.*;
+import org.launchcode.codingevents.models.Event;
+import org.launchcode.codingevents.models.dto.EventTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.launchcode.codingevents.models.Event;
 
 import javax.validation.Valid;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("events")
@@ -30,6 +29,9 @@ public class EventController {
 
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
   /*  @GetMapping
     public String displayAllEvents(Model model) {
 
@@ -103,6 +105,53 @@ public class EventController {
         return "redirect:";
     }
 
+    @GetMapping("add-tag")
+    public String displayAddTagForm(@RequestParam Integer eventId, Model model){
+        Optional<Event> result = eventRepository.findById(eventId);
+        Event event = result.get();
+        model.addAttribute("title", "Add Tag to: " + event.getName());
+        model.addAttribute("tags", tagRepository.findAll());
+        EventTagDTO eventTag = new EventTagDTO();
+        eventTag.setEvent(event);
+        model.addAttribute("eventTag", eventTag);
+        return "events/add-tag";
+    }
+
+    @PostMapping("add-tag")
+    public String processAddTagForm(@ModelAttribute @Valid EventTagDTO eventTag,
+                                    Errors errors,
+                                    Model model){
+
+        if (!errors.hasErrors()) {
+            Event event = eventTag.getEvent();
+            Tag tag = eventTag.getTag();
+            if (!event.getTags().contains(tag)){
+                event.addTag(tag);
+                model.addAttribute("titel","Add Tag to: " + event.getName());
+                eventRepository.save(event);
+            }
+            return "redirect:detail?eventId=" + event.getId();
+        }
+
+        return "redirect:add-tag";
+    }
+
+    @GetMapping("detail")
+    public String displayEventDetails(@RequestParam Integer eventId, Model model) {
+
+        Optional<Event> result = eventRepository.findById(eventId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Event ID: " + eventId);
+        } else {
+            Event event = result.get();
+            model.addAttribute("title", event.getName() + " Details");
+            model.addAttribute("event", event);
+            model.addAttribute("tags", event.getTags());
+        }
+
+        return "events/detail";
+    }
     @GetMapping("edit/{eventId}")
     public String displayEditForm(Model model, @PathVariable int eventId) {
 //        Optional<Event> event = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
@@ -121,23 +170,33 @@ public class EventController {
     }
 
     @PostMapping("edit")
-    public String processEditForm(Event event1,@RequestParam int eventId,@RequestParam String name,
-                                   @RequestParam String description,
-                                 @RequestParam String contactEmail, @RequestParam Integer Attendees) {
+    public String processEditForm(@ModelAttribute @Valid Event event1, Errors errros, @RequestParam int eventId,@RequestParam String name,
+                                   EventCategory category, @Valid  EventDetails details,
+                                  @RequestParam Integer Attendees,Model model) {
 
 
 //         event= EventData.getById(eventId)
-//        Optional<Event> event = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
-                Optional<Event> event = eventRepository.findById(eventId);
+        Optional<Event> event = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
 
-        if(event.isPresent())
                event1= event.get();
 
                event1.setName(name);
-//               event1.setDescription(description);
-//               event1.setContactEmail(contactEmail);
+               //event1.setEventCategory(category);
+
                event1.setAttendees(Attendees);
         eventRepository.save(event1);
             return "redirect:";
 
-    }}
+//        if(errros.hasErrors()){
+//            model.addAttribute("title", "Edit event");
+//            return "events/edit";
+//
+//        }
+//        Event event = eventRepository.findById(eventId).get();
+//        event1= event;
+//
+//        eventRepository.save(event1);
+//        return "redirect:";
+
+    }
+}

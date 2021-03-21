@@ -3,6 +3,8 @@ package org.launchcode.codingevents.models;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -39,6 +41,10 @@ public class Event extends AbstractEntity {
     @Valid // to validate the EventDetails fields and its afield valid annotation
     @NotNull
     private EventDetails eventDetails;
+
+    @ManyToMany
+    private final List<Tag> tags = new ArrayList<>();
+
     //no-arg constructor
     /** The second one is protected and has no arguments and/or no return statement.
     While you must set up this second constructor,
@@ -125,6 +131,12 @@ public class Event extends AbstractEntity {
         this.eventDetails = eventDetails;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+    }
     @Override
     public String toString() {
         return name;
