@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Event {
     //private String id = UUID.randomUUID().toString();
    private  int id;
-    private static AtomicInteger idSequence = new AtomicInteger();
-   //private static int nextId =1;
+    //private static AtomicInteger idSequence = new AtomicInteger();
+   private static int nextId =1;
    @NotBlank(message = "Name is required.")
    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
@@ -24,9 +24,9 @@ public class Event {
     private Integer Attendees;
 
     public Event(String name, String description,String contactEmail,Integer Attendees) {
-//        this.id=nextId;
-//        nextId++;
-        this.id = idSequence.incrementAndGet();
+        this.id=nextId;
+        nextId++;
+        //this.id = idSequence.incrementAndGet();
         this.name = name;
         this.description = description;
         this.contactEmail=contactEmail;
@@ -37,6 +37,11 @@ public class Event {
 
     public int getId() {
         return id;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

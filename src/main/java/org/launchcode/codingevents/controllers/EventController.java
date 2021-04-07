@@ -3,6 +3,7 @@ package org.launchcode.codingevents.controllers;
 import org.launchcode.codingevents.data.EventData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.launchcode.codingevents.models.Event;
@@ -81,24 +82,24 @@ public class EventController {
         model.addAttribute("title","Edit event " +
                 "'( name= " +eventToEdit.getName() + " )' '(id =" +eventToEdit.getId() +")'");
 
-        model.addAttribute("events",eventToEdit);
+        //model.addAttribute("events",eventToEdit);
         //model.addAttribute("events", EventData.getAll());
 
         return "events/edit";
     }
-
     @PostMapping("edit")
     public String processEditForm(Model model,int eventId,  @RequestParam String name,
-                                   @RequestParam String description,
+                                  @RequestParam String description,
                                   @RequestParam String contactEmail, @RequestParam Integer Attendees) {
         //EventData.edit(id,name,description,contactEmail,Attendees);
         Event event = EventData.getById(eventId);
-            event.setName(name);
-            event.setDescription(description);
-            event.setContactEmail(contactEmail);
-            event.setAttendees(Attendees);
+        event.setName(name);
+        event.setDescription(description);
+        event.setContactEmail(contactEmail);
+        event.setAttendees(Attendees);
         return "redirect:";
 
 
     }
+
 }

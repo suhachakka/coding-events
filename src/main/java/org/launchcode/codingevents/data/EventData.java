@@ -38,4 +38,11 @@ public class EventData {
 //        }
 //        return eventToEdit;
 //    }
+    public static void edit(Integer id, Event event){
+        Integer eventEdit = event.getId();
+        if(events.containsKey(eventEdit)){
+            events.put(eventEdit,event);
+        }
+
+    }
 }
