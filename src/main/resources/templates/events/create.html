@@ -21,6 +21,13 @@
         <p class = "error" th:errors="${event.description}"></p>
 
     </div>
+    <div class="form-group">
+        <label>Date
+            <input type="datetime-local" th:field=${event.myDate}  class="form-control"></label>
+        <p class = "error" th:errors="${event.myDate}"></p>
+
+    </div>
+
 
     <div class="form-group">
 

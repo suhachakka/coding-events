@@ -1,9 +1,13 @@
 package org.launchcode.codingevents.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,6 +28,10 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @Future
+    private LocalDateTime myDate;
+
     @Min(50)
     private Integer Attendees;
 
@@ -36,7 +44,8 @@ public class Event {
     }
 
 
-    public Event(String name, String description,String contactEmail,Integer Attendees,EventType type) {
+    public Event(String name, String description,String contactEmail,Integer Attendees,EventType type,
+                 LocalDateTime myDate) {
 
         this();
         this.name = name;
@@ -44,6 +53,7 @@ public class Event {
         this.contactEmail=contactEmail;
         this.Attendees=Attendees;
         this.type=type;
+        this.myDate = myDate;
     }
 
 
@@ -90,6 +100,15 @@ public class Event {
 
     public void setType(EventType type) {
         this.type = type;
+    }
+
+    public LocalDateTime getMyDate() {
+        return myDate;
+    }
+
+    public void setMyDate(LocalDateTime myDate){
+
+        this.myDate = myDate;
     }
 
     @Override
