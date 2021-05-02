@@ -12,7 +12,6 @@ public class EventDetails extends AbstractEntity{
     @Size(max = 500, message = "Description too long!")
     private String description;
 
-    @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 //this app won't need inverse relationship because they have the reference key to match the eventdetails in event

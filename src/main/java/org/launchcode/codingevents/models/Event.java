@@ -74,6 +74,7 @@ public class Event extends AbstractEntity {
         return id;
     }*/
 
+
     public String getName() {
         return name;
     }

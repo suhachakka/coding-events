@@ -32,6 +32,8 @@ public class EventController {
 
     @Autowired
     private TagRepository tagRepository;
+    private Integer eventId;
+    private Event event;
   /*  @GetMapping
     public String displayAllEvents(Model model) {
 
@@ -154,6 +156,11 @@ public class EventController {
     }
     @GetMapping("edit/{eventId}")
     public String displayEditForm(Model model, @PathVariable int eventId) {
+        /*  Optional<Event> result = eventRepository.findById(id);
+        Event event = result.get();
+        model.addAttribute("title","Update  Event  where  ID = "+id +" name is "+ event.getName()) ;
+        model.addAttribute("event",event);
+        * */
 //        Optional<Event> event = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
         Optional<Event> event = eventRepository.findById(eventId);
         if( event.isPresent() ) {
@@ -169,34 +176,34 @@ public class EventController {
         return "events/edit";
     }
 
-    @PostMapping("edit")
-    public String processEditForm(@ModelAttribute @Valid Event event1, Errors errros, @RequestParam int eventId,@RequestParam String name,
+/*    @PostMapping("edit")
+    public String processEditForm(@ModelAttribute Event event, Errors errros, @RequestParam int eventId,@RequestParam String name,
                                    EventCategory category, @Valid  EventDetails details,
-                                  @RequestParam Integer Attendees,Model model) {
+                                  @RequestParam Integer Attendees) {
+                                    Optional<Event> result = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
+                                    event = result.get();
+                                    event.setName(name);
+                                    event.setAttendees(attendees);
+                                    event.setEventDetails(details);
+                                    eventRepository.save(event);
+                                    return "redirect:";
+                                    }
 
-
-//         event= EventData.getById(eventId)
-        Optional<Event> event = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
-
-               event1= event.get();
-
-               event1.setName(name);
+    */
+@PostMapping("edit")
+    public String processEditForm(@RequestParam(required = false) Integer eventId, @ModelAttribute Event event) {
+    //event= EventData.getById(eventId)
+        Optional<Event> result = Optional.ofNullable(eventRepository.findById(eventId).orElse(null));
+               Event eventEdit=result.get();
+               eventEdit.setName(event.getName());
                //event1.setEventCategory(category);
 
-               event1.setAttendees(Attendees);
-        eventRepository.save(event1);
+               eventEdit.setAttendees(event.getAttendees());
+               eventEdit.setEventDetails(event.getEventDetails());
+        eventRepository.save(eventEdit);
             return "redirect:";
 
-//        if(errros.hasErrors()){
-//            model.addAttribute("title", "Edit event");
-//            return "events/edit";
-//
-//        }
-//        Event event = eventRepository.findById(eventId).get();
-//        event1= event;
-//
-//        eventRepository.save(event1);
-//        return "redirect:";
+
 
     }
 }
